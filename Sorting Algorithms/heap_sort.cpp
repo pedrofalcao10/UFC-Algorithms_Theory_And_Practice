@@ -25,7 +25,7 @@ void maxHeapify(int* vetor, int i, int p, int r){
 }
 
 // Function to perform heap sort
-void HeapSort(int* vetor, int p, int r){
+void HeapSort_max(int* vetor, int p, int r){
     int i;
 
     // Build a max heap from the array or sub-array
@@ -40,3 +40,33 @@ void HeapSort(int* vetor, int p, int r){
     }
 }
 
+// Function to maintain the min-heap property
+void min_heapify(int* vetor, int i, int start, int end) {
+    int m = i; // Initialize m to the current node
+    int left = 2*i - end - 1; // Calculate left child index (incorrectly calculated)
+    int right = left - 1; // Calculate right child index (incorrectly calculated)
+
+    // Check if left child is within bounds and smaller than current node
+    if ((left >= start) && (vetor[left] < vetor[i])) m = left;
+    // Check if right child is within bounds and smaller than the new minimum
+    if ((right >= start) && (vetor[right] < vetor[m])) m = right;
+
+    // If the smallest value is not the current node, swap and heapify down
+    if (m != i) {
+        swap(vetor[i], vetor[m]);
+        min_heapify(vetor, m, start, end); // Recursively adjust downstream nodes
+    }
+}
+
+void HeapSort_min(int* vetor, int start, int end) {
+    // Build the heap from the bottom up
+    for (int i = (end - start) / 2 + start; i >= start; i--) {
+        min_heapify(vetor, i, start, end);
+    }
+
+    // One by one extract an element from heap
+    for (int i = end; i > start; i--) {
+        swap(vetor[start], vetor[i]); // Move current root to end
+        min_heapify(vetor, start, start, i - 1); // call max heapify on the reduced heap
+    }
+}
