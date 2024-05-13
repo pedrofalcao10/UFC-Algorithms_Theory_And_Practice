@@ -50,3 +50,19 @@ void print_matrix(int** m, int N) {
         cout << "\n";
     }
 }
+
+int main() {
+    int** R = NULL;
+
+    // 1st book example
+    int N1 = 3;
+    int p1[4] = {10, 100, 5, 50};
+    int result = MCM(p1, N1, R);
+    cout << "Number of scalar multiplications = " << result << "\n\n";
+
+    print_parent(0, N1-1, R);
+    cout << "\n\n\n\n";
+    if (R != NULL) {for (int i = 0; i < N1; i++) delete[] R[i]; delete[] R; R = NULL;}
+
+    return 0;
+}
