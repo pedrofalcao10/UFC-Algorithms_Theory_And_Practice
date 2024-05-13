@@ -32,6 +32,16 @@ unsigned int MCM(int* p, int N, int**& R) {
     return r;
 }
 
+void print_parent(int i, int j, int** R) {
+    if (i == j) {cout << i+1; return;}
+
+    cout << "(";
+    print_parent(i, R[i][j], R);
+    cout << "*";
+    print_parent(R[i][j]+1, j, R);
+    cout << ")";
+}
+
 void print_matrix(int** m, int N) {
     int i, j;
     for (i = 0; i < N; i++) {
