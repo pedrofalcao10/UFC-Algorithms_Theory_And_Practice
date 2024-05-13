@@ -21,10 +21,22 @@ unsigned int MCM(int* p, int N, int**& R) {
         }
     }
 
+    print_matrix(m, N);
+    cout << "\n";
+
     int r = m[0][N-1];
 
     for (int i = 0; i < N; i++) delete[] m[i];
     delete[] m;
 
     return r;
+}
+
+void print_matrix(int** m, int N) {
+    int i, j;
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < i; j++) cout << "- ";
+        for (j = i; j < N; j++) cout << m[i][j] << " ";
+        cout << "\n";
+    }
 }
