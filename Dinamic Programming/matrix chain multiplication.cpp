@@ -57,12 +57,22 @@ int main() {
     // 1st book example
     int N1 = 3;
     int p1[4] = {10, 100, 5, 50};
-    int result = MCM(p1, N1, R);
-    cout << "Number of scalar multiplications = " << result << "\n\n";
+    int result1 = MCM(p1, N1, R);
+    cout << "Number of scalar multiplications = " << result1 << "\n\n";
 
     print_parent(0, N1-1, R);
     cout << "\n\n\n\n";
     if (R != NULL) {for (int i = 0; i < N1; i++) delete[] R[i]; delete[] R; R = NULL;}
+
+    // 2nd book example
+    int N2 = 6;
+    int p2[7] = {30, 35, 15, 5, 10, 20, 25};
+    int result2 = MCM(p2, N2, R);
+    cout << "Number of scalar multiplications = " << result2 << "\n\n";
+
+    print_parent(0, N2-1, R);
+    cout << "\n\n\n\n";
+    if (R != NULL) {for (int i = 0; i < N2; i++) delete[] R[i]; delete[] R; R = NULL;}
 
     return 0;
 }
