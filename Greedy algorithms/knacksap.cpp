@@ -62,6 +62,22 @@ double Knapsack_01(const vector<char>& items, const vector<double>& values, cons
         }
     }
 
+    // Store the result of Knapsack
+    double max_value = dp[n][static_cast<int>(max_weight)];
+
+    // Track the items included in the knapsack
+    int w = max_weight;
+    x.assign(n, 0);
+    for (int i = n; i > 0 && max_value > 0; --i) {
+        if (max_value == dp[i - 1][w]) {
+            continue; // This item is not included
+        } else {
+            x[i - 1] = 1; // This item is included
+            max_value -= values[i - 1];
+            w -= static_cast<int>(weights[i - 1]);
+        }
+    }
+
     return dp[n][static_cast<int>(max_weight)];
 }
 
