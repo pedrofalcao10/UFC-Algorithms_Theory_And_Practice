@@ -1,7 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <algorithm> // For std::sort
+#include <map>
+#include <utility> // for std::pair
 using namespace std;
+using std::map;
+using std::pair;
+using std::cout;
+using std::endl;
 
 // Function to maximize the knapsack value
 double Knapsack_fractional(const vector<char>& items, const vector<double>& values, const vector<double>& weights, double max_weight, vector<double>& x) {
@@ -38,19 +44,37 @@ double Knapsack_fractional(const vector<char>& items, const vector<double>& valu
 }
 
 int main() {
-    vector<char> item = {'a', 'b', 'c', 'd'};
-    vector<double> values = {50,140,60,60}; // Value of items
-    vector<double> weights = {5,20,10,12}; // Weight of items
+    // Corrected map declaration with std::pair as value type
+    // Map {item, {value, weight}}
+    map<char, pair<double, double>> my_items = {
+        {'A', {50.0, 5}},
+        {'B', {140.0, 20}},
+        {'C', {60.0, 10}},
+        {'D', {60.0, 10}}
+    };
+
+    // Extracting keys, values, and weights into vectors
+    vector<char> items;
+    vector<double> values;
+    vector<double> weights;
+
+    for (const auto& item : my_items) {
+        items.push_back(item.first);
+        values.push_back(item.second.first);
+        weights.push_back(item.second.second);
+    }
+
     double max_weight = 30; // Maximum weight the bag can hold
     vector<double> x; // Amount of each item in the knapsack
 
-    double max_value = Knapsack_fractional(item, values, weights, max_weight, x);
+    double max_value = Knapsack_fractional(items, values, weights, max_weight, x);
 
-    // Output the maximum value and the contents of the knapsack
-    cout << "Maximum value achievable: " << max_value << endl;
-    cout << "Items and amounts taken:" << endl;
-    for (int i = 0; i < item.size(); i++) 
-        cout << "Item " << item[i] << ": " << x[i] << " kg" << endl;
+    // Output the results
+    cout << "Maximum value in knapsack: " << max_value << endl;
+    cout << "Amounts of each item taken:" << endl;
+    for (size_t i = 0; i < items.size(); i++) {
+        cout << "Item " << items[i] << ": " << x[i] << " units" << endl;
+    }
 
     return 0;
 }
