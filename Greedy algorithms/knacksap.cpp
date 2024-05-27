@@ -43,6 +43,28 @@ double Knapsack_fractional(const vector<char>& items, const vector<double>& valu
     return max_value;
 }
 
+// Function to maximize the knapsack value for the 0/1 knapsack problem
+double Knapsack_01(const vector<char>& items, const vector<double>& values, const vector<double>& weights, double max_weight, vector<int>& x) {
+    int n = items.size();
+    vector<vector<double>> dp(n + 1, vector<double>(static_cast<int>(max_weight) + 1, 0));
+
+    for (int i = 0; i <= n; i++) dp[i][0] = 0;
+    for (int w = 0; w <= max_weight; w++) dp[0][w] = 0;
+    
+    // Build table dp[][] in bottom-up manner
+    for (int i = 1; i <= n; i++) {
+        for (int w = 1; w <= max_weight; w++) {
+            if (weights[i - 1] <= w) {
+                dp[i][w] = max(dp[i - 1][w], dp[i - 1][w - static_cast<int>(weights[i - 1])] + values[i - 1]);
+            } else {
+                dp[i][w] = dp[i - 1][w];
+            }
+        }
+    }
+
+    return dp[n][static_cast<int>(max_weight)];
+}
+
 int main() {
     // Corrected map declaration with std::pair as value type
     // Map {item, {value, weight}}
@@ -67,10 +89,10 @@ int main() {
     double max_weight = 30; // Maximum weight the bag can hold
     vector<double> x; // Amount of each item in the knapsack
 
-    double max_value = Knapsack_fractional(items, values, weights, max_weight, x);
+    double max_value_frac = Knapsack_fractional(items, values, weights, max_weight, x);
 
     // Output the results
-    cout << "Maximum value in knapsack: " << max_value << endl;
+    cout << "Maximum value in knapsack: " << max_value_frac << endl;
     cout << "Amounts of each item taken:" << endl;
     for (size_t i = 0; i < items.size(); i++) {
         cout << "Item " << items[i] << ": " << x[i] << " units" << endl;
