@@ -103,15 +103,15 @@ int main() {
     }
 
     double max_weight = 30; // Maximum weight the bag can hold
-    vector<double> x; // Amount of each item in the knapsack
+    vector<double> x_frac; // Amount of each item in the knapsack
 
-    double max_value_frac = Knapsack_fractional(items, values, weights, max_weight, x);
+    double max_value_frac = Knapsack_fractional(items, values, weights, max_weight, x_frac);
 
     // Output the results
     cout << "Maximum value in knapsack: " << max_value_frac << endl;
     cout << "Amounts of each item taken:" << endl;
     for (size_t i = 0; i < items.size(); i++) {
-        cout << "Item " << items[i] << ": " << x[i] << " units" << endl;
+        cout << "Item " << items[i] << ": " << x_frac[i] << " units" << endl;
     }
 
     return 0;
