@@ -55,7 +55,7 @@ void print_ED_op(int i, int j, char** R, string X, string Y, string op1, string 
         return;
     }
 
-    if      (R[i][j] == '1') {N
+    if      (R[i][j] == '1') {
         print_ED_op(i-1, j-1, R, X, Y, string(1,X[i-1])+op1, string(1,Y[j-1])+op2);
         return;
     }
